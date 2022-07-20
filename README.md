@@ -6,7 +6,6 @@ Prerequisite
 Java 8+
 Maven 3.x
 Docker
-Postman in order to test the api : 
 
 Getting Started
 To install this application, run the following commands:
@@ -28,10 +27,6 @@ java -jar siret-0.0.1-SNAPSHOT.jar
 
 This should start up the siret application at port 8080. 
 
-To test the endpoint run following command : 
-
-curl http://localhost:8080/siret
-
 Docker Build: 
 
 To build docker image, Execute the following command 
@@ -44,3 +39,8 @@ Run the newly created Docker image, siret:latest, by executing the docker run co
 
 docker run -p 8080:8080 siret:latest
 
+Test application : 
+
+To test the endpoint run following command : 
+
+curl http://localhost:8080/siret
