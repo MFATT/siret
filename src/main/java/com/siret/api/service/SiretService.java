@@ -1,7 +1,11 @@
 package com.siret.api.service;
 
+import com.siret.api.dto.CompanyResponseDTO;
+
+import java.util.List;
+
 public interface SiretService {
 
 
-    void getSirets() throws Exception;
+    List<CompanyResponseDTO> getCompaniesInformationBySirets();
 }

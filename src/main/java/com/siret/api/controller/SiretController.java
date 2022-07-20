@@ -1,9 +1,12 @@
 package com.siret.api.controller;
 
+import com.siret.api.dto.CompanyResponseDTO;
 import com.siret.api.service.SiretService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/siret")
@@ -16,8 +19,8 @@ public class SiretController {
     }
 
     @GetMapping
-    public void getCompanies() throws Exception {
+    public List<CompanyResponseDTO> getCompanies() {
 
-         this.siretService.getSirets();
+        return this.siretService.getCompaniesInformationBySirets();
     }
 }

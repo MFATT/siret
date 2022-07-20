@@ -9,7 +9,7 @@ public class CompanyInformationResponseDTO {
     private LocalDate date_creation;
     private String geo_adresse;
     private String name;
-    private String numero_tva_intra;
+
     private UniteLegalResponse unite_legale;
 
     public Long getId() {
@@ -52,13 +52,6 @@ public class CompanyInformationResponseDTO {
         this.name = name;
     }
 
-    public String getNumero_tva_intra() {
-        return numero_tva_intra;
-    }
-
-    public void setNumero_tva_intra(String numero_tva_intra) {
-        this.numero_tva_intra = numero_tva_intra;
-    }
 
     public UniteLegalResponse getUnite_legale() {
         return unite_legale;

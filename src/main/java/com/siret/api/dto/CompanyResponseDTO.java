@@ -1,5 +1,7 @@
 package com.siret.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class CompanyResponseDTO {
         this.etablissement = etablissement;
     }
 
+    @JsonIgnore
     public List<String[]> getLine() {
         List<String[]> lines= new ArrayList<>();
         String[] csvRows = new String[]{
@@ -23,7 +26,7 @@ public class CompanyResponseDTO {
                 this.etablissement.getUnite_legale().getDenomination(),
                 this.etablissement.getGeo_adresse(),
                 this.etablissement.getNic(),
-                this.etablissement.getNumero_tva_intra(),
+                this.etablissement.getUnite_legale().getNumero_tva_intra(),
                 this.etablissement.getDate_creation().format(DateTimeFormatter.ISO_LOCAL_DATE)
 
         };

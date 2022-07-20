@@ -3,11 +3,15 @@ package com.siret.api.service.impl;
 import com.siret.api.dto.CompanyResponseDTO;
 import com.siret.api.service.SiretService;
 import com.siret.api.utils.CSVUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.file.Paths;
@@ -19,8 +23,10 @@ import java.util.Objects;
 @Service
 public class SiretServiceImpl implements SiretService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SiretServiceImpl.class);
+
     @Value("${sirets}")
-    private String[] sirets;
+    private String[] siretsNumbers;
 
     @Value("${sirene.api.url}")
     private String sireneApiUrl;
@@ -35,15 +41,21 @@ public class SiretServiceImpl implements SiretService {
     }
 
     @Override
-    public void getSirets() throws Exception {
+    public List<CompanyResponseDTO> getCompaniesInformationBySirets() {
         List<CompanyResponseDTO> companyResponseDTOS = new ArrayList<>();
-        Arrays.asList(sirets).forEach(siret -> {
+        Arrays.asList(siretsNumbers).forEach(siret -> {
             CompanyResponseDTO companyResponseDTO = getCompany(siret);
             if (Objects.nonNull(companyResponseDTO)) {
                 companyResponseDTOS.add(companyResponseDTO);
             }
         });
-        CSVUtils.writeToCSVFile(companyResponseDTOS, Paths.get(filePath));
+        try {
+            CSVUtils.writeToCSVFile(companyResponseDTOS, Paths.get(filePath));
+        } catch (Exception e) {
+            LOGGER.error("ERROR while writing to the csv file", e.getMessage());
+            throw new RuntimeException("ERROR while writing to the csv file", e);
+        }
+        return companyResponseDTOS;
     }
 
     private CompanyResponseDTO getCompany(String siret) {
@@ -51,10 +63,11 @@ public class SiretServiceImpl implements SiretService {
         try {
             companyResponseDTO = restTemplate.exchange(sireneApiUrl + siret, HttpMethod.GET, new HttpEntity<>(null), new ParameterizedTypeReference<CompanyResponseDTO>() {
             }).getBody();
-        } catch (Exception e) {
-            /**
-             * TODO add log and exception handling
-             */
+        } catch (HttpClientErrorException httpClientErrorException) {
+            LOGGER.error("Error calling sirene api :", httpClientErrorException.getMessage());
+            if (HttpStatus.NOT_FOUND.equals(httpClientErrorException.getStatusCode())) {
+                LOGGER.error("there is no company information where the siret " + siret);
+            }
         }
 
 
