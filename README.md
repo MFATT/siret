@@ -45,6 +45,6 @@ docker run -p 8080:8080 siret:latest
 # Test application : 
 
 To test the endpoint run following command : 
-```http
+```bash
 curl http://localhost:8080/siret
 ```
