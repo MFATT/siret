@@ -18,7 +18,7 @@ Maven Build:
 
 mvn clean install
 
-It will create the Spring Boot executable JAR,siret-0.0.1-SNAPSHOT.jar.jar, under target folder.
+It will create the Spring Boot executable JAR,siret-0.0.1-SNAPSHOT.jar, under target folder.
 
 Run : 
 To run the newly created Spring Boot JAR from the terminal:
