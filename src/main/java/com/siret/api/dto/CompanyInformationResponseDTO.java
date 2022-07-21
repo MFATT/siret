@@ -8,7 +8,6 @@ public class CompanyInformationResponseDTO {
     private String nic;
     private LocalDate date_creation;
     private String geo_adresse;
-    private String name;
 
     private UniteLegalResponse unite_legale;
 
@@ -43,15 +42,7 @@ public class CompanyInformationResponseDTO {
     public void setGeo_adresse(String geo_adresse) {
         this.geo_adresse = geo_adresse;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    
 
     public UniteLegalResponse getUnite_legale() {
         return unite_legale;

@@ -22,8 +22,8 @@ class SiretServiceImplTest {
     @Test
     public void testGetCompaniesInformationBySirets() throws Exception {
 
-        List<CompanyResponseDTO> listerLesEvenements = this.siretService.getCompaniesInformationBySirets();
-        assertThat(listerLesEvenements).as("Company list is not empty").isNotNull();
+        List<CompanyResponseDTO> companyResponseDTOS = this.siretService.getCompaniesInformationBySirets();
+        assertThat(companyResponseDTOS).as("Company list is not empty").isNotNull();
     }
 
 }
