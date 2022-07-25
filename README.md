@@ -40,7 +40,7 @@ docker build -t siret:latest .
 
 Run the newly created Docker image, siret:latest, by executing the docker run command :
 ```bash
-docker run -p 8080:8080 siret:latest
+docker run -p 8080:8080 -v /tmp/data:/data siret:latest
 ```
 # Test application : 
 
